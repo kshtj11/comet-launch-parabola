@@ -163,8 +163,8 @@ function updateUI(y) {
         // Peak is at the center of the comet
         const cometCenterY = y + 43.8; 
         
-        // Width scales dynamically from thin (100) to thick (1000)
-        const tailWidth = 100 + (progress * 900);
+        // Width scales dynamically from thin (100) to very wide (2500) to flatten the curve
+        const tailWidth = 100 + (progress * 2400);
         
         const leftX = 270 - tailWidth / 2;
         const rightX = 270 + tailWidth / 2;
@@ -182,7 +182,15 @@ function updateUI(y) {
         const alpha = 0.3 + (progress * 0.7);
         tailStopTop.setAttribute('stop-color', `rgba(255, 255, 255, ${alpha})`);
         
+        // Comet fades out as it nears the top
+        let cometOpacity = 1;
+        if (progress > 0.7) {
+            cometOpacity = 1 - ((progress - 0.7) / 0.3);
+        }
+        comet.style.opacity = cometOpacity;
+        
     } else {
         tailSvg.style.opacity = 0;
+        comet.style.opacity = 1;
     }
 }
