@@ -12,13 +12,22 @@ const variant2Overlays = document.getElementById('variant-2-overlays');
 const tailPathOrange = document.getElementById('tail-path-orange');
 const tailPathBlue = document.getElementById('tail-path-blue');
 
-let isVariant2 = false;
+const homescreenBg = document.getElementById('homescreen-bg');
+const tailPathMask = document.getElementById('tail-path-mask');
+
+let currentVariant = 1;
 if (variantToggle) {
     variantToggle.addEventListener('click', () => {
-        isVariant2 = !isVariant2;
-        variantToggle.textContent = isVariant2 ? 'Variant 2' : 'Variant 1';
+        currentVariant = (currentVariant % 3) + 1;
+        variantToggle.textContent = `Variant ${currentVariant}`;
         if (variant2Overlays) {
-            variant2Overlays.style.display = isVariant2 ? 'block' : 'none';
+            variant2Overlays.style.display = currentVariant === 2 ? 'block' : 'none';
+        }
+        if (homescreenBg) {
+            homescreenBg.style.display = currentVariant === 3 ? 'block' : 'none';
+        }
+        if (tailPath) {
+            tailPath.style.display = currentVariant === 3 ? 'none' : 'block';
         }
     });
 }
@@ -177,6 +186,7 @@ function updateUI(y) {
         tailPath.setAttribute('d', pathData);
         if (tailPathOrange) tailPathOrange.setAttribute('d', pathData);
         if (tailPathBlue) tailPathBlue.setAttribute('d', pathData);
+        if (tailPathMask) tailPathMask.setAttribute('d', pathData);
         
         // Gradient color intensity increases (alpha 0.3 to 1.0)
         const alpha = 0.3 + (progress * 0.7);
