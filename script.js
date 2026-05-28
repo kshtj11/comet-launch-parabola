@@ -147,8 +147,8 @@ function updateUI(y) {
         // Peak is at the center of the comet
         const cometCenterY = y + 43.8; 
         
-        // Width scales dynamically from very thin (20) to thick (1000)
-        const tailWidth = 20 + (progress * 980);
+        // Width scales dynamically from thin (100) to thick (1000)
+        const tailWidth = 100 + (progress * 900);
         
         const leftX = 270 - tailWidth / 2;
         const rightX = 270 + tailWidth / 2;
@@ -163,11 +163,6 @@ function updateUI(y) {
         // Gradient color intensity increases (alpha 0.3 to 1.0)
         const alpha = 0.3 + (progress * 0.7);
         tailStopTop.setAttribute('stop-color', `rgba(255, 255, 255, ${alpha})`);
-        
-        // Dynamically adjust the fade-out point (40% to 100%)
-        // This is what makes the visible shape very thin at the start, expanding as you pull!
-        const fadeOffset = 40 + (progress * 60);
-        tailStopBottom.setAttribute('offset', `${fadeOffset}%`);
         
     } else {
         tailSvg.style.opacity = 0;
