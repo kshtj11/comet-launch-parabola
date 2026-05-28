@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>540x620 Webpage</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <!-- The white flash that appears at the end -->
+        <div class="white-flash" id="white-flash"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar"></div>
+        <div class="time-top">12:30</div>
+        
+        <!-- Network & Battery Icons -->
+        <div class="wifi-1"></div>
+        <div class="wifi-2"></div>
+        <div class="wifi-3"></div>
+        <div class="battery-body"></div>
+        <div class="battery-fill"></div>
+        <div class="battery-tip"></div>
+        
+        <!-- Bottom Section -->
+        <div class="swipe-text" id="swipe-text">Swipe up to launch</div>
+        
+        <!-- The tail of the comet -->
+        <svg id="tail-svg" width="540" height="620" style="position: absolute; top: 0; left: 0; z-index: 4; pointer-events: none; opacity: 0;">
+            <defs>
+                <linearGradient id="tail-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" stop-color="rgba(255,255,255,0.3)" id="tail-stop-top" />
+                    <stop offset="80%" stop-color="rgba(217,217,217,0)" />
+                </linearGradient>
+            </defs>
+            <path id="tail-path" fill="url(#tail-grad)" d="" />
+        </svg>
+        
+        <!-- Button Component (Comet) -->
+        <div class="component-1" id="comet">
+            <div class="layer-a"></div>
+            <div class="layer-b"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
