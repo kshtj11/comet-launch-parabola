@@ -7,6 +7,22 @@ const tailPath = document.getElementById('tail-path');
 const tailStopTop = document.getElementById('tail-stop-top');
 const tailStopBottom = document.getElementById('tail-stop-bottom');
 
+const variantToggle = document.getElementById('variant-toggle');
+const variant2Overlays = document.getElementById('variant-2-overlays');
+const tailPathOrange = document.getElementById('tail-path-orange');
+const tailPathBlue = document.getElementById('tail-path-blue');
+
+let isVariant2 = false;
+if (variantToggle) {
+    variantToggle.addEventListener('click', () => {
+        isVariant2 = !isVariant2;
+        variantToggle.textContent = isVariant2 ? 'Variant 2' : 'Variant 1';
+        if (variant2Overlays) {
+            variant2Overlays.style.display = isVariant2 ? 'block' : 'none';
+        }
+    });
+}
+
 const startY = 506; // Initial top position from Frame 30
 const endY = 214;   // Final top position from Frame 33/34
 const maxDistance = startY - endY;
@@ -159,6 +175,8 @@ function updateUI(y) {
         
         const pathData = `M ${leftX} 620 Q 270 ${ctrlY} ${rightX} 620 Z`;
         tailPath.setAttribute('d', pathData);
+        if (tailPathOrange) tailPathOrange.setAttribute('d', pathData);
+        if (tailPathBlue) tailPathBlue.setAttribute('d', pathData);
         
         // Gradient color intensity increases (alpha 0.3 to 1.0)
         const alpha = 0.3 + (progress * 0.7);

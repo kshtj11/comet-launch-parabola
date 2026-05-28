@@ -16,6 +16,11 @@
         <div class="status-bar"></div>
         <div class="time-top">12:30</div>
         
+        <!-- Toggle Button -->
+        <div style="position: absolute; top: 44px; left: 20px; z-index: 100;">
+            <button id="variant-toggle" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; cursor: pointer; backdrop-filter: blur(4px);">Variant 1</button>
+        </div>
+        
         <!-- Network & Battery Icons -->
         <div class="wifi-1"></div>
         <div class="wifi-2"></div>
@@ -30,12 +35,31 @@
         <!-- The tail of the comet -->
         <svg id="tail-svg" width="540" height="620" style="position: absolute; top: 0; left: 0; z-index: 4; pointer-events: none; opacity: 0;">
             <defs>
-                <linearGradient id="tail-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <!-- Base white/grey (Variant 1) -->
+                <linearGradient id="tail-grad-base" x1="0%" y1="0%" x2="0%" y2="100%">
                     <stop offset="0%" stop-color="rgba(255,255,255,0.3)" id="tail-stop-top" />
                     <stop offset="100%" stop-color="rgba(217,217,217,0)" id="tail-stop-bottom" />
                 </linearGradient>
+                
+                <!-- Variant 2 Orange Layer -->
+                <linearGradient id="tail-grad-orange" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="1.55%" stop-color="rgba(255, 118, 0, 0.88)" />
+                    <stop offset="20.2%" stop-color="rgba(252, 161, 74, 0.3344)" />
+                    <stop offset="46.5%" stop-color="rgba(106, 108, 198, 0)" />
+                </linearGradient>
+                
+                <!-- Variant 2 Blue Layer -->
+                <linearGradient id="tail-grad-blue" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="14.09%" stop-color="rgba(101, 181, 255, 0.71)" />
+                    <stop offset="92.53%" stop-color="rgba(102, 102, 102, 0)" />
+                </linearGradient>
             </defs>
-            <path id="tail-path" fill="url(#tail-grad)" d="" />
+            <path id="tail-path" fill="url(#tail-grad-base)" d="" />
+            
+            <g id="variant-2-overlays" style="opacity: 0.8; display: none;">
+                <path id="tail-path-orange" fill="url(#tail-grad-orange)" d="" />
+                <path id="tail-path-blue" fill="url(#tail-grad-blue)" style="mix-blend-mode: color-burn;" d="" />
+            </g>
         </svg>
         
         <!-- Button Component (Comet) -->
