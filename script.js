@@ -147,8 +147,8 @@ function updateUI(y) {
         // Peak is at the center of the comet
         const cometCenterY = y + 43.8; 
         
-        // Width scales dynamically from base 371 to 1000
-        const tailWidth = 371 + (progress * 629);
+        // Width scales dynamically from very thin (20) to thick (1000)
+        const tailWidth = 20 + (progress * 980);
         
         const leftX = 270 - tailWidth / 2;
         const rightX = 270 + tailWidth / 2;
