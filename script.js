@@ -18,16 +18,16 @@ const tailPathMask = document.getElementById('tail-path-mask');
 let currentVariant = 1;
 if (variantToggle) {
     variantToggle.addEventListener('click', () => {
-        currentVariant = (currentVariant % 3) + 1;
+        currentVariant = (currentVariant % 4) + 1;
         variantToggle.textContent = `Variant ${currentVariant}`;
         if (variant2Overlays) {
-            variant2Overlays.style.display = currentVariant === 2 ? 'block' : 'none';
+            variant2Overlays.style.display = (currentVariant === 2 || currentVariant === 4) ? 'block' : 'none';
         }
         if (homescreenBg) {
-            homescreenBg.style.display = currentVariant === 3 ? 'block' : 'none';
+            homescreenBg.style.display = (currentVariant === 3 || currentVariant === 4) ? 'block' : 'none';
         }
         if (tailPath) {
-            tailPath.style.display = currentVariant === 3 ? 'none' : 'block';
+            tailPath.style.display = (currentVariant === 3 || currentVariant === 4) ? 'none' : 'block';
         }
     });
 }
