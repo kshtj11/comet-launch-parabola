@@ -163,8 +163,8 @@ function updateUI(y) {
         // Peak is at the center of the comet
         const cometCenterY = y + 43.8; 
         
-        // Width scales dynamically from thin (100) to very wide (2500) to flatten the curve
-        const tailWidth = 100 + (progress * 2400);
+        // Width stays curvy (narrow) for most of the drag, then rapidly flattens near the top
+        const tailWidth = 100 + (progress * 800) + (Math.pow(progress, 5) * 2500);
         
         const leftX = 270 - tailWidth / 2;
         const rightX = 270 + tailWidth / 2;
