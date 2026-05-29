@@ -7,7 +7,6 @@ const fullHomescreen = document.getElementById('full-homescreen');
 const tailSvg = document.getElementById('tail-svg');
 const tailPathMask = document.getElementById('tail-path-mask');
 const tailPathGlow = document.getElementById('tail-path-glow');
-const tailPathSolid = document.getElementById('tail-path-solid');
 
 const startY = 506; // Initial top position from Frame 30
 const endY = 214;   // Final top position from Frame 33/34
@@ -55,7 +54,6 @@ window.addEventListener('keydown', (e) => {
 function updateBackground() {
     if (coverBg) coverBg.src = coverBgImages[currentBgIndex];
     if (tailPathGlow) tailPathGlow.setAttribute('stroke', coverBgColors[currentBgIndex]);
-    if (tailPathSolid) tailPathSolid.setAttribute('stroke', coverBgColors[currentBgIndex].replace('0.8', '0.4'));
 }
 
 // Set initial background color
@@ -203,7 +201,6 @@ function updateUI(y) {
         
         if (tailPathMask) tailPathMask.setAttribute('d', pathData);
         if (tailPathGlow) tailPathGlow.setAttribute('d', strokePathData);
-        if (tailPathSolid) tailPathSolid.setAttribute('d', strokePathData);
         
         // Comet fades out as it nears the top
         let cometOpacity = 1;
