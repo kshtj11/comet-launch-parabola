@@ -15,7 +15,7 @@ const tailPathBlue = document.getElementById('tail-path-blue');
 const homescreenBg = document.getElementById('homescreen-bg');
 const tailPathMask = document.getElementById('tail-path-mask');
 
-let currentVariant = 1;
+let currentVariant = 3;
 if (variantToggle) {
     variantToggle.addEventListener('click', () => {
         currentVariant = (currentVariant % 4) + 1;
