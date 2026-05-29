@@ -7,6 +7,7 @@ const fullHomescreen = document.getElementById('full-homescreen');
 const tailSvg = document.getElementById('tail-svg');
 const tailPathMask = document.getElementById('tail-path-mask');
 const tailPathGlow = document.getElementById('tail-path-glow');
+const maskGrad = document.getElementById('homescreen-mask-grad');
 
 const startY = 506; // Initial top position from Frame 30
 const endY = 214;   // Final top position from Frame 33/34
@@ -201,6 +202,12 @@ function updateUI(y) {
         
         if (tailPathMask) tailPathMask.setAttribute('d', pathData);
         if (tailPathGlow) tailPathGlow.setAttribute('d', strokePathData);
+        
+        if (maskGrad) {
+            const fadeLength = 300 - (progress * 200);
+            maskGrad.setAttribute('y1', cometCenterY);
+            maskGrad.setAttribute('y2', cometCenterY + fadeLength);
+        }
         
         // Comet fades out as it nears the top
         let cometOpacity = 1;
