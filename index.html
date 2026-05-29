@@ -41,7 +41,8 @@
                     <path id="tail-path-mask" fill="white" d="" />
                 </mask>
                 <filter id="colored-glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="8" result="blur" />
+                    <feOffset dx="0" dy="3" in="SourceGraphic" result="offset" />
+                    <feGaussianBlur stdDeviation="8" in="offset" result="blur" />
                 </filter>
             </defs>
             
@@ -49,7 +50,7 @@
             <image id="homescreen-bg" href="Frame%2061.png" x="0" y="0" width="540" height="620" preserveAspectRatio="xMidYMid slice" mask="url(#homescreen-mask)" style="display: block;" />
             
             <!-- Glowing Trail Border -->
-            <path id="tail-path-glow" fill="none" stroke="rgba(106, 108, 198, 0.8)" stroke-width="10" filter="url(#colored-glow)" d="" />
+            <path id="tail-path-glow" fill="none" stroke="rgba(106, 108, 198, 0.8)" stroke-width="12" filter="url(#colored-glow)" mask="url(#homescreen-mask)" d="" />
             <path id="tail-path-solid" fill="none" stroke="rgba(106, 108, 198, 0.4)" stroke-width="2" d="" />
         </svg>
         
