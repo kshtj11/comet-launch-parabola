@@ -1,6 +1,7 @@
 const comet = document.getElementById('comet');
 const swipeText = document.getElementById('swipe-text');
 const whiteFlash = document.getElementById('white-flash');
+const coverBg = document.getElementById('cover-bg');
 
 const tailSvg = document.getElementById('tail-svg');
 const tailPath = document.getElementById('tail-path');
@@ -50,6 +51,24 @@ window.addEventListener('touchmove', drag, {passive: false});
 
 window.addEventListener('mouseup', endDrag);
 window.addEventListener('touchend', endDrag);
+
+const coverBgImages = [
+    'bgs/Frame 2609175.png',
+    'bgs/Frame 2609176.png',
+    'bgs/Frame 2609178.png',
+    'bgs/Group 5.png'
+];
+let currentBgIndex = 0;
+
+window.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowUp') {
+        currentBgIndex = (currentBgIndex - 1 + coverBgImages.length) % coverBgImages.length;
+        if (coverBg) coverBg.src = coverBgImages[currentBgIndex];
+    } else if (e.key === 'ArrowDown') {
+        currentBgIndex = (currentBgIndex + 1) % coverBgImages.length;
+        if (coverBg) coverBg.src = coverBgImages[currentBgIndex];
+    }
+});
 
 function startDrag(e) {
     if (isSnapping) return;
