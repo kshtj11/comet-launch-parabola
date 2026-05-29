@@ -35,10 +35,10 @@ const coverBgImages = [
     'bgs/Group 5.png'
 ];
 const coverBgColors = [
-    'rgba(106, 108, 198, 0.8)', // blue/purple
-    'rgba(255, 118, 0, 0.8)',   // orange
-    'rgba(0, 255, 204, 0.8)',   // teal
-    'rgba(255, 0, 127, 0.8)'    // pink
+    'rgba(67, 56, 202, 0.95)',  // deeper indigo/purple
+    'rgba(194, 65, 12, 0.95)',  // deeper orange
+    'rgba(15, 118, 110, 0.95)', // deeper teal
+    'rgba(190, 24, 93, 0.95)'   // deeper pink
 ];
 let currentBgIndex = 0;
 
