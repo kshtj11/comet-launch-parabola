@@ -2,36 +2,12 @@ const comet = document.getElementById('comet');
 const swipeText = document.getElementById('swipe-text');
 const whiteFlash = document.getElementById('white-flash');
 const coverBg = document.getElementById('cover-bg');
+const fullHomescreen = document.getElementById('full-homescreen');
 
 const tailSvg = document.getElementById('tail-svg');
-const tailPath = document.getElementById('tail-path');
-const tailStopTop = document.getElementById('tail-stop-top');
-const tailStopBottom = document.getElementById('tail-stop-bottom');
-
-const variantToggle = document.getElementById('variant-toggle');
-const variant2Overlays = document.getElementById('variant-2-overlays');
-const tailPathOrange = document.getElementById('tail-path-orange');
-const tailPathBlue = document.getElementById('tail-path-blue');
-
-const homescreenBg = document.getElementById('homescreen-bg');
 const tailPathMask = document.getElementById('tail-path-mask');
-
-let currentVariant = 3;
-if (variantToggle) {
-    variantToggle.addEventListener('click', () => {
-        currentVariant = (currentVariant % 4) + 1;
-        variantToggle.textContent = `Variant ${currentVariant}`;
-        if (variant2Overlays) {
-            variant2Overlays.style.display = (currentVariant === 2 || currentVariant === 4) ? 'block' : 'none';
-        }
-        if (homescreenBg) {
-            homescreenBg.style.display = (currentVariant === 3 || currentVariant === 4) ? 'block' : 'none';
-        }
-        if (tailPath) {
-            tailPath.style.display = (currentVariant === 3 || currentVariant === 4) ? 'none' : 'block';
-        }
-    });
-}
+const tailPathGlow = document.getElementById('tail-path-glow');
+const tailPathSolid = document.getElementById('tail-path-solid');
 
 const startY = 506; // Initial top position from Frame 30
 const endY = 214;   // Final top position from Frame 33/34
@@ -58,17 +34,32 @@ const coverBgImages = [
     'bgs/Frame 2609178.png',
     'bgs/Group 5.png'
 ];
+const coverBgColors = [
+    'rgba(106, 108, 198, 0.8)', // blue/purple
+    'rgba(255, 118, 0, 0.8)',   // orange
+    'rgba(0, 255, 204, 0.8)',   // teal
+    'rgba(255, 0, 127, 0.8)'    // pink
+];
 let currentBgIndex = 0;
 
 window.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowUp') {
         currentBgIndex = (currentBgIndex - 1 + coverBgImages.length) % coverBgImages.length;
-        if (coverBg) coverBg.src = coverBgImages[currentBgIndex];
+        updateBackground();
     } else if (e.key === 'ArrowDown') {
         currentBgIndex = (currentBgIndex + 1) % coverBgImages.length;
-        if (coverBg) coverBg.src = coverBgImages[currentBgIndex];
+        updateBackground();
     }
 });
+
+function updateBackground() {
+    if (coverBg) coverBg.src = coverBgImages[currentBgIndex];
+    if (tailPathGlow) tailPathGlow.setAttribute('stroke', coverBgColors[currentBgIndex]);
+    if (tailPathSolid) tailPathSolid.setAttribute('stroke', coverBgColors[currentBgIndex].replace('0.8', '0.4'));
+}
+
+// Set initial background color
+updateBackground();
 
 function startDrag(e) {
     if (isSnapping) return;
@@ -120,14 +111,20 @@ function endDrag() {
                 currentY = endY;
                 updateUI(currentY);
                 whiteFlash.style.opacity = 1;
+                fullHomescreen.style.opacity = 1;
+                
+                // Flash fades quickly
+                setTimeout(() => {
+                    whiteFlash.style.opacity = 0;
+                }, 50);
                 
                 // Optional: Reset state after a delay to allow repeated testing
                 setTimeout(() => {
                     currentY = startY;
                     updateUI(currentY);
-                    whiteFlash.style.opacity = 0;
+                    fullHomescreen.style.opacity = 0;
                     isSnapping = false;
-                }, 1500);
+                }, 3000);
             }
         }
         
@@ -202,14 +199,11 @@ function updateUI(y) {
         const ctrlY = 2 * cometCenterY - 620;
         
         const pathData = `M ${leftX} 620 Q 270 ${ctrlY} ${rightX} 620 Z`;
-        tailPath.setAttribute('d', pathData);
-        if (tailPathOrange) tailPathOrange.setAttribute('d', pathData);
-        if (tailPathBlue) tailPathBlue.setAttribute('d', pathData);
-        if (tailPathMask) tailPathMask.setAttribute('d', pathData);
+        const strokePathData = `M ${leftX} 620 Q 270 ${ctrlY} ${rightX} 620`;
         
-        // Gradient color intensity increases (alpha 0.3 to 1.0)
-        const alpha = 0.3 + (progress * 0.7);
-        tailStopTop.setAttribute('stop-color', `rgba(255, 255, 255, ${alpha})`);
+        if (tailPathMask) tailPathMask.setAttribute('d', pathData);
+        if (tailPathGlow) tailPathGlow.setAttribute('d', strokePathData);
+        if (tailPathSolid) tailPathSolid.setAttribute('d', strokePathData);
         
         // Comet fades out as it nears the top
         let cometOpacity = 1;
